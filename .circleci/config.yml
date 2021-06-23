@@ -26,7 +26,7 @@ jobs:
       - run : 
           name: Test front-end
           command: |
-            npm run test
+            np test
 
 workflows:
   my_workflow:
