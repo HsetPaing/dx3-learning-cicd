@@ -1,14 +1,5 @@
 version: 2.1
 jobs:
-  npm-install:
-    docker:
-      - image: circleci/node:14 # ジョブのコマンドが実行されるプライマリ コンテナ
-    steps:
-      - checkout # プロジェクト ディレクトリ内のコードをチェック アウトします
-      - run : 
-          name: Install front-end
-          command: |
-            npm install --save
   build:
     docker:
       - image: circleci/node:14 # ジョブのコマンドが実行されるプライマリ コンテナ
@@ -17,7 +8,8 @@ jobs:
       - run : 
           name: Build front-end
           command: |
-            npm run build
+            npm install
+            npm build
   test:
     docker:
       - image: circleci/node:14 # ジョブのコマンドが実行されるプライマリ コンテナ
@@ -26,11 +18,13 @@ jobs:
       - run : 
           name: Test front-end
           command: |
+            npm install
             npm test
-
 workflows:
   my_workflow:
     jobs:
-      - npm-install
-      - test
+      - build
+      - test:
+          requires:
+          - build
       ### Add the job
