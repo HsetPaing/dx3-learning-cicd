@@ -1,28 +1,28 @@
 version: 2.1
 jobs:
-  build:
+  install-node-example:
     docker:
-      - image: circleci/node # ジョブのコマンドが実行されるプライマリ コンテナ
+      - image: circleci/node:14 # ジョブのコマンドが実行されるプライマリ コンテナ
     steps:
       - checkout # プロジェクト ディレクトリ内のコードをチェック アウトします
       - run : 
           name: Build front-end
           command: |
-            #### Write the command
-            #### Write the command
+            node install --save
 
   test:
     docker:
-      - image: circleci/node # ジョブのコマンドが実行されるプライマリ コンテナ
+      - image: circleci/node:14 # ジョブのコマンドが実行されるプライマリ コンテナ
     steps:
       - checkout # プロジェクト ディレクトリ内のコードをチェック アウトします
       - run : 
           name: Test front-end
           command: |
-            ### Write the command
-            ### Write the command
+            npm test
 
 workflows:
   my_workflow:
     jobs:
+      - install-node-example
+      - test
       ### Add the job
