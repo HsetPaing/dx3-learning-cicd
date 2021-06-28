@@ -13,10 +13,11 @@ jobs:
             npm install
             npm run build
       - store_artifacts: # buildで出力されたファイルをArtifactsに保存する
-          path: /tmp/art-1
-          destination: artifact-file
+          path: test-result.xml
       - store_artifacts:
-          path: /tmp/artifacts
+          path: coverage
+      - store_test_results:
+          path: test-result.xml
   test:
     docker:
       - image: circleci/node:12-browsers 
