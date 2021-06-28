@@ -37,3 +37,6 @@ workflows:
       - test:
           requires:
             - build
+      - cache:
+          requires:
+            - build
