@@ -10,7 +10,7 @@ jobs:
       - run : 
           name: Build front-end
           command: |
-            npm install
+            npm install --save 
             npm run build
       - store_artifacts: # buildで出力されたファイルをArtifactsに保存する
           path: test-result.xml
