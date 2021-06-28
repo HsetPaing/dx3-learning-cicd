@@ -10,14 +10,13 @@ jobs:
       - run : 
           name: Build front-end
           command: |
-            npm install --save 
-            npm run build
-      - store_artifacts: # buildで出力されたファイルをArtifactsに保存する
-          path: test-result.xml
-      - store_artifacts:
-          path: coverage
-      - store_test_results:
-          path: test-result.xml
+            npm install && npm run build
+      # - store_artifacts: # buildで出力されたファイルをArtifactsに保存する
+      #     path: test-result.xml
+      # - store_artifacts:
+      #     path: coverage
+      # - store_test_results:
+      #     path: test-result.xml
   test:
     docker:
       - image: circleci/node:12-browsers 
@@ -26,7 +25,6 @@ jobs:
       - run : 
           name: Test front-end
           command: |
-            npm install
             npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
   cache:
     docker:
