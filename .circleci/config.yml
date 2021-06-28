@@ -6,7 +6,7 @@ jobs:
     docker:
       - image: circleci/node # ジョブのコマンドが実行されるプライマリ コンテナ
     steps:
-      - checkout # プロジェクト ディレクトリ内のコードをチェック アウトします
+      #- checkout # プロジェクト ディレクトリ内のコードをチェック アウトします
       - run : 
           name: Build front-end
           command: |
