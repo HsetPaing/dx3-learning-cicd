@@ -21,7 +21,11 @@ jobs:
           command: |
             npm install
             npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-    step:
+  cache:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
       - save_cache:
           paths:
             - node_modules
