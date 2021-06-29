@@ -1,5 +1,7 @@
   
 version: 2.1
+orbs:
+  slack: circleci/slack@4.4.2
 jobs:
   build:
     # working_directory: /tmp
@@ -20,12 +22,30 @@ jobs:
   test:
     docker:
       - image: circleci/node:12-browsers 
+    
     steps:
       - checkout # プロジェクト ディレクトリ内のコードをチェック アウトします
       - run : 
           name: Test front-end
           command: |
             npm install && npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+      - slack/notify:
+          event: always
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "plain_text",
+                      "text": "*This is a text notification*",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
   cache:
     docker:
       - image: circleci/node:12
