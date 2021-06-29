@@ -14,7 +14,7 @@ jobs:
           command: |
             npm install && npm run build
       - store_artifacts: # buildで出力されたファイルをArtifactsに保存する
-          path: dist
+          path: /tmp/artifacts
       # - store_artifacts:
       #     path: coverage
       # - store_test_results:
