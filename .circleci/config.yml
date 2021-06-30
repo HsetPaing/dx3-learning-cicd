@@ -20,7 +20,7 @@ jobs:
           key: v1-deps
 
       - store_artifacts: # buildで出力されたファイルをArtifactsに保存する
-          path: /tmp/artifacts
+          path: dist
       # - store_artifacts:
       #     path: coverage
       # - store_test_results:
