@@ -17,7 +17,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v1-deps-{{ checksum "package-lock.json" }}
+          key: v1-deps
 
       - store_artifacts: # buildで出力されたファイルをArtifactsに保存する
           path: /tmp/artifacts
@@ -31,10 +31,12 @@ jobs:
     
     steps:
       - checkout # プロジェクト ディレクトリ内のコードをチェック アウトします
+      - restore_cache:
+          key: v1-deps
       - run : 
           name: Test front-end
           command: |
-            npm install && npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+            npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       - slack/notify:
           event: always
           custom: |
