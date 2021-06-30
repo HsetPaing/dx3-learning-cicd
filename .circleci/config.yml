@@ -13,6 +13,12 @@ jobs:
           name: Build front-end
           command: |
             npm install && npm run build
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-deps-{{ checksum "package-lock.json" }}
+
       - store_artifacts: # buildで出力されたファイルをArtifactsに保存する
           path: /tmp/artifacts
       # - store_artifacts:
@@ -46,22 +52,10 @@ jobs:
                 }
               ]
             }
-  cache:
-    docker:
-      - image: circleci/node:12
-    steps:
-      - checkout
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-deps-{{ checksum "package-lock.json" }}
 workflows:
   my_workflow:
     jobs:
       - build
       - test:
-          requires:
-            - build
-      - cache:
           requires:
             - build
