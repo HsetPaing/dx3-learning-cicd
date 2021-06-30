@@ -23,10 +23,6 @@ jobs:
 
       - store_artifacts: # buildで出力されたファイルをArtifactsに保存する
           path: dist
-      # - store_artifacts:
-      #     path: coverage
-      # - store_test_results:
-      #     path: test-result.xml
   test:
     docker:
       - image: circleci/node:12-browsers 
@@ -39,23 +35,6 @@ jobs:
           name: Test front-end
           command: |
             npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-      - slack/notify:
-          event: always
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "plain_text",
-                      "text": "*This is a text notification*",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
 workflows:
   my_workflow:
     jobs:
