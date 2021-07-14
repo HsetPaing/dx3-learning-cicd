@@ -44,6 +44,11 @@ jobs:
       - run : 
           name: Front build
           command: |
+            curl -sL https://rpm.nodesource.com/setup_12.x | bash -
+            yum install -y nodejs
+      - run : 
+          name: Front build
+          command: |
             npm install && npm run build
       - run:
          name: Deploy to S3
