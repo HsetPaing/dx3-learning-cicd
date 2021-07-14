@@ -35,10 +35,24 @@ jobs:
           name: Test front-end
           command: |
             npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+  deploy:
+    docker:
+      - image: amazon/aws-cli
+    
+    steps:
+      - checkout # プロジェクト ディレクトリ内のコードをチェック アウトします
+      - run : 
+          name: Front build
+          command: |
+            npm install && npm run build
+      - run:
+         name: Deploy to S3
+         command: aws s3 cp ./dist s3://dx3-ci-cd-test -- recursive            
+
 workflows:
   my_workflow:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - deploy
+      # - test:
+      #     requires:
+      #       - build
