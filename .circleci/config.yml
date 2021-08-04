@@ -52,7 +52,8 @@ jobs:
             npm install && npm run build
       - run:
          name: Deploy to S3
-         command: aws s3 cp ./dist s3://dx3-ci-cd-test --recursive            
+         command: |
+          aws s3 cp ./dist s3://dx3-ci-cd-test --recursive            
 
 workflows:
   my_workflow:
